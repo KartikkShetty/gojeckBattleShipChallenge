@@ -132,11 +132,10 @@ func (bs *BattleField) Initialize(order int) {
 	matrix := make([][]string, order)
 	for i := 0; i < order; i++ {
 		matrix[i] = make([]string, 0, order)
-		vector := make([]string, order)
+		arr := make([]string, order)
 		for j := 0; j < order; j++ {
-			//vector[j] = i*order + j
-			vector[j] = "_"
-			matrix[i] = append(matrix[i], vector[j])
+			arr[j] = "_"
+			matrix[i] = append(matrix[i], arr[j])
 		}
 	}
 	bs.battleField = matrix
