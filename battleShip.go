@@ -151,7 +151,7 @@ func (bs *BattleField) ArrangeShips(battleShipPositions []string) {
 	}
 }
 
-//Attack ,attack the ships on the battle BattleField with the provided coordinates and returns the number of hits
+//Attack ,attack the ships on the battle BattleField with the provided coordinates
 func (bs *BattleField) Attack(attackPositions []string) {
 
 	hits := 0
