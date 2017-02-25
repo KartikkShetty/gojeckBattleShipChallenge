@@ -85,20 +85,23 @@ type fileReader struct {
 	scanner *bufio.Scanner
 }
 
+//Init initializes the fileReader
 func (f *fileReader) Init(fileName string) {
 	data, _ := os.Open(fileName)
 	f.scanner = bufio.NewScanner(data)
 
 }
+
+//ReadLine reads the next line of input
 func (f *fileReader) ReadLine() (string, error) {
 
 	if !f.scanner.Scan() {
-		return "", errors.New("")
+		return "", errors.New("EOF")
 	}
 	return f.scanner.Text(), nil
-
 }
 
+//WriteToFile writes to file the data string
 func (f *fileReader) WriteToFile(fileName string, data string) {
 	fileHandle := f.getOutputWriter(fileName)
 	writer := bufio.NewWriter(fileHandle)
