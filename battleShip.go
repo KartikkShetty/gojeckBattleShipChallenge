@@ -11,7 +11,7 @@ import (
 
 func main() {
 
-	flReader := &fileReader{}
+	flReader := &fileReaderWriter{}
 	flReader.Init("input.txt")
 	for {
 		var order int
@@ -57,7 +57,7 @@ func main() {
 		printOutput(flReader, battlefield1, battlefield2)
 	}
 }
-func printOutput(flReader *fileReader, battlefield1 *BattleField, battlefield2 *BattleField) {
+func printOutput(flReader *fileReaderWriter, battlefield1 *BattleField, battlefield2 *BattleField) {
 	output := ""
 	output = "Player1 \n"
 	output = output + battlefield1.Print()
@@ -81,19 +81,19 @@ func printOutput(flReader *fileReader, battlefield1 *BattleField, battlefield2 *
 
 }
 
-type fileReader struct {
+type fileReaderWriter struct {
 	scanner *bufio.Scanner
 }
 
 //Init initializes the fileReader
-func (f *fileReader) Init(fileName string) {
+func (f *fileReaderWriter) Init(fileName string) {
 	data, _ := os.Open(fileName)
 	f.scanner = bufio.NewScanner(data)
 
 }
 
 //ReadLine reads the next line of input
-func (f *fileReader) ReadLine() (string, error) {
+func (f *fileReaderWriter) ReadLine() (string, error) {
 
 	if !f.scanner.Scan() {
 		return "", errors.New("EOF")
@@ -102,7 +102,7 @@ func (f *fileReader) ReadLine() (string, error) {
 }
 
 //WriteToFile writes to file the data string
-func (f *fileReader) WriteToFile(fileName string, data string) {
+func (f *fileReaderWriter) WriteToFile(fileName string, data string) {
 	fileHandle := f.getOutputWriter(fileName)
 	writer := bufio.NewWriter(fileHandle)
 	defer fileHandle.Close()
@@ -111,7 +111,7 @@ func (f *fileReader) WriteToFile(fileName string, data string) {
 	writer.Flush()
 }
 
-func (f *fileReader) getOutputWriter(fileName string) *os.File {
+func (f *fileReaderWriter) getOutputWriter(fileName string) *os.File {
 	var fileHandle *os.File
 	if _, err := os.Stat(fileName); os.IsNotExist(err) {
 		fileHandle, _ = os.Create(fileName)
